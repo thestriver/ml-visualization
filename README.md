@@ -2,7 +2,7 @@
 
 This interactive data visualization portfolio showcases advanced techniques for visualizing machine learning model performance metrics. Using low-level visualization frameworks including D3.js, visx, and WebGL, we demonstrate how to create insightful, interactive visualizations that help data scientists understand model behavior and performance.
 
-![ML Visualization Dashboard](https://via.placeholder.com/800x400?text=ML+Visualization+Dashboard)
+![ML Visualization Dashboard](./public/screenshot.png)
 
 ## Visualizations Included
 
