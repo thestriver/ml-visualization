@@ -7,7 +7,7 @@ import TabNavigation from './components/TabNavigation';
 import { generateLossData, generateConfusionMatrix, generateFeatureImportance, generatePredictions3D } from './utils/sampleData';
 
 export default function Home() {
-  const [activeTab, setActiveTab] = useState<string>('d3');
+  const [activeTab, setActiveTab] = useState<string>('loss');
 
   // Generate ML metrics data
   const [metricsData, setMetricsData] = useState<MLMetricsData>({
