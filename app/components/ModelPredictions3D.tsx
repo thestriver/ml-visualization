@@ -257,8 +257,8 @@ export default function ModelPredictions3D({ data }: ModelPredictions3DProps) {
             <div className="flex flex-col space-y-4">
                 <h2 className="text-2xl font-semibold text-gray-800">ML 3D Model Predictions Visualization</h2>
 
-                <div className="bg-gradient-to-r from-blue-50 to-blue-100 p-3 rounded-lg border border-blue-200">
-                    <div className="flex items-center space-x-2 text-blue-800 mb-2">
+                <div className="bg-gradient-to-r from-gray-50 to-gray-100 p-3 rounded-lg border border-gray-200">
+                    <div className="flex items-center space-x-2 text-gray-800 mb-2">
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -274,12 +274,12 @@ export default function ModelPredictions3D({ data }: ModelPredictions3DProps) {
                 </div>
             </div>
 
-            <div className="flex justify-between items-center mb-6 bg-white p-4 rounded-lg shadow-sm border border-gray-100">
-                <div className="flex items-center space-x-6">
+            <div className="flex justify-between items-center mb-6 bg-white p-4">
+                <div className="flex items-center justify-between space-x-6">
                     {/* Highlight Class Selector */}
                     <div className="min-w-[200px]">
                         <label className="flex items-center space-x-2 text-sm font-medium text-gray-700 mb-2">
-                            <svg className="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
                             </svg>
                             <span>Highlight Class</span>
@@ -289,8 +289,8 @@ export default function ModelPredictions3D({ data }: ModelPredictions3DProps) {
                                 aria-label="Highlight Class"
                                 value={highlightClass || ''}
                                 onChange={(e) => setHighlightClass(e.target.value || null)}
-                                className="appearance-none block w-full px-3 py-2 border border-gray-200 rounded-lg bg-white shadow-sm 
-                                         focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 
+                                className="appearance-none block w-full px-3 py-1 border border-gray-200 rounded-lg bg-white shadow-sm 
+                                         focus:outline-none focus:ring-2 focus:ring-gray-500/20 focus:border-gray-500 
                                          transition-colors duration-200 ease-in-out"
                             >
                                 <option value="">All Classes</option>
@@ -361,13 +361,13 @@ export default function ModelPredictions3D({ data }: ModelPredictions3DProps) {
                 ))}
             </div>
 
-            <div className="mt-6 bg-blue-50 p-4 rounded-lg">
-                <h3 className="text-lg font-medium mb-2 text-blue-800">3D Predictions Analysis</h3>
-                <p className="text-blue-700 mb-3">
+            <div className="mt-6 bg-gray-50 p-4 rounded-lg">
+                <h3 className="text-lg font-medium mb-2 text-gray-800">3D Predictions Analysis</h3>
+                <p className="text-gray-700 mb-3 text-sm">
                     This 3D visualization shows model predictions in feature space. Each point represents a sample, colored by
                     its actual class. Misclassified points are highlighted with blended colors.
                 </p>
-                <ul className="list-disc pl-5 text-blue-700">
+                <ul className="list-disc pl-5 text-gray-700 text-sm">
                     <li>Drag to rotate the view, scroll to zoom in/out</li>
                     <li>Click on a class in the legend to highlight only that class</li>
                     <li>Toggle the &quot;Show Misclassified Points&quot; option to focus on model errors</li>

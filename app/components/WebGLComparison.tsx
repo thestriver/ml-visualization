@@ -9,16 +9,30 @@ export default function WebGLComparison() {
   const rodinRef = useRef<HTMLDivElement | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
+  // Refs for cleanup
+  const trellisSceneRef = useRef<{
+    scene: THREE.Scene;
+    camera: THREE.Camera;
+    renderer: THREE.WebGLRenderer;
+    controls: OrbitControls;
+  } | undefined>(undefined);
+  const rodinSceneRef = useRef<{
+    scene: THREE.Scene;
+    camera: THREE.Camera;
+    renderer: THREE.WebGLRenderer;
+    controls: OrbitControls;
+  } | undefined>(undefined);
+
   const initScene = (container: HTMLDivElement) => {
     // Scene setup
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x1a1a1a);
+    // scene.background = new THREE.Color(0x1a1a1a);
 
     // Grid helper
-    const size = 10;
-    const divisions = 10;
-    const gridHelper = new THREE.GridHelper(size, divisions, 0x404040, 0x404040);
-    scene.add(gridHelper);
+    // const size = 10;
+    // const divisions = 10;
+    // const gridHelper = new THREE.GridHelper(size, divisions, 0x404040, 0x404040);
+    // scene.add(gridHelper);
 
     // Camera
     const camera = new THREE.PerspectiveCamera(
@@ -31,13 +45,19 @@ export default function WebGLComparison() {
     camera.position.y = 2;
 
     // Renderer
-    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    const renderer = new THREE.WebGLRenderer({
+      antialias: true,
+      powerPreference: "high-performance",
+      alpha: true
+    });
     renderer.setSize(container.clientWidth, container.clientHeight);
+    renderer.setPixelRatio(window.devicePixelRatio);
     container.appendChild(renderer.domElement);
 
     // Controls
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true;
+    controls.dampingFactor = 0.05;
 
     // Lighting
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
@@ -55,36 +75,62 @@ export default function WebGLComparison() {
     const rodinContainer = rodinRef.current;
     if (!trellisContainer || !rodinContainer) return;
 
+    // Cleanup previous instances
+    if (trellisSceneRef.current) {
+      const { renderer, controls } = trellisSceneRef.current;
+      renderer.dispose();
+      controls.dispose();
+      trellisContainer.innerHTML = '';
+    }
+    if (rodinSceneRef.current) {
+      const { renderer, controls } = rodinSceneRef.current;
+      renderer.dispose();
+      controls.dispose();
+      rodinContainer.innerHTML = '';
+    }
+
     // Initialize both scenes
     const trellis = initScene(trellisContainer);
     const rodin = initScene(rodinContainer);
 
+    // Store refs for cleanup
+    trellisSceneRef.current = trellis;
+    rodinSceneRef.current = rodin;
+
     // Load models
     const loader = new GLTFLoader();
+    let loadedCount = 0;
 
     // Load Trellis model
     loader.load('/models/trellis.glb', (gltf) => {
       const model = gltf.scene;
+      model.scale.set(4, 4, 4);
       trellis.scene.add(model);
-      setLoading(false);
+      loadedCount++;
+      if (loadedCount === 2) setLoading(false);
     });
 
     // Load Rodin model
     loader.load('/models/rodin.glb', (gltf) => {
       const model = gltf.scene;
+      model.scale.set(2, 2, 2);
       rodin.scene.add(model);
-      setLoading(false);
+      loadedCount++;
+      if (loadedCount === 2) setLoading(false);
     });
 
-    // Animation loops
+    // Animation loops with RAF IDs for cleanup
+    let trellisRAF: number;
+    let rodinRAF: number;
+
     const animateTrellis = () => {
-      requestAnimationFrame(animateTrellis);
+      trellisRAF = requestAnimationFrame(animateTrellis);
       trellis.controls.update();
       trellis.renderer.render(trellis.scene, trellis.camera);
     };
 
     const animateRodin = () => {
-      requestAnimationFrame(animateRodin);
+      rodinRAF = requestAnimationFrame(animateRodin);
       rodin.controls.update();
       rodin.renderer.render(rodin.scene, rodin.camera);
     };
@@ -111,18 +157,46 @@ export default function WebGLComparison() {
     // Cleanup
     return () => {
       window.removeEventListener('resize', handleResize);
-      trellisContainer.removeChild(trellis.renderer.domElement);
-      rodinContainer.removeChild(rodin.renderer.domElement);
-      trellis.renderer.dispose();
-      rodin.renderer.dispose();
+
+      // Cancel animation frames
+      cancelAnimationFrame(trellisRAF);
+      cancelAnimationFrame(rodinRAF);
+
+      // Dispose Three.js resources
+      if (trellisSceneRef.current) {
+        const { renderer, controls, scene } = trellisSceneRef.current;
+        renderer.dispose();
+        controls.dispose();
+        scene.traverse((object) => {
+          if (object instanceof THREE.Mesh) {
+            object.geometry.dispose();
+            if (object.material instanceof THREE.Material) {
+              object.material.dispose();
+            }
+          }
+        });
+      }
+      if (rodinSceneRef.current) {
+        const { renderer, controls, scene } = rodinSceneRef.current;
+        renderer.dispose();
+        controls.dispose();
+        scene.traverse((object) => {
+          if (object instanceof THREE.Mesh) {
+            object.geometry.dispose();
+            if (object.material instanceof THREE.Material) {
+              object.material.dispose();
+            }
+          }
+        });
+      }
     };
   }, []);
 
   return (
     <div className="space-y-6">
       <div className="flex flex-col space-y-4">
-        <div className="bg-gradient-to-r from-blue-50 to-blue-100 p-3 rounded-lg border border-blue-200">
-          <div className="flex items-center space-x-2 text-blue-800 mb-2">
+        <div className="bg-gradient-to-r from-gray-50 to-gray-100 p-3 rounded-lg border border-gray-200">
+          <div className="flex items-center space-x-2 text-gray-800 mb-2">
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -184,9 +258,9 @@ export default function WebGLComparison() {
         </div>
       </div>
 
-      <div className="bg-blue-50 p-4 rounded-lg">
-        <h3 className="text-lg font-medium mb-2 text-blue-800">Interaction Guide</h3>
-        <ul className="pl-5 list-disc space-y-1 text-blue-700">
+      <div className="bg-gray-50   p-4 rounded-lg">
+        <h3 className="text-lg font-medium mb-2 text-gray-800">Interaction Guide</h3>
+        <ul className="pl-5 list-disc space-y-1 text-gray-700 text-sm">
           <li>Left click + drag to rotate the view</li>
           <li>Right click + drag to pan</li>
           <li>Scroll to zoom in/out</li>

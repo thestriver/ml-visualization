@@ -221,8 +221,8 @@ export default function ConfusionMatrixHeatmap({
         <div className="confusion-matrix-container">
             <div className="flex flex-col space-y-4">
 
-                <div className="bg-gradient-to-r from-blue-50 to-blue-100 p-3 rounded-lg border border-blue-200">
-                    <div className="flex items-center space-x-2 text-blue-800 mb-2">
+                <div className="bg-gradient-to-r from-gray-50 to-gray-100 p-3 rounded-lg border border-gray-200">
+                    <div className="flex items-center space-x-2 text-gray-800 mb-2">
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -259,7 +259,7 @@ export default function ConfusionMatrixHeatmap({
                             ></div>
                         </div>
                         <div className="flex items-center space-x-2">
-                            <svg className="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
                             </svg>
                             <span className="text-sm font-medium text-gray-700 group-hover:text-gray-900 transition-colors">
@@ -279,22 +279,22 @@ export default function ConfusionMatrixHeatmap({
                 ></div>
             </div>
 
-            <div className="mt-6 bg-blue-50 p-4 rounded-lg">
-                <h3 className="text-lg font-medium mb-2 text-blue-800">Confusion Matrix Analysis</h3>
-                <p className="text-blue-700 mb-3">
+            <div className="mt-6 bg-gray-50 p-4 rounded-lg">
+                <h3 className="text-lg font-medium mb-2 text-gray-800">Confusion Matrix Analysis</h3>
+                <p className="text-gray-700 mb-3 text-sm">
                     This heatmap shows how well the model distinguishes between different classes. The darker cells along
                     the diagonal represent correct predictions, while off-diagonal cells represent misclassifications.
                 </p>
-                <ul className="list-disc pl-5 text-blue-700">
+                <ul className="list-disc pl-5 text-gray-700 text-sm">
                     <li>High values along the diagonal indicate good class-specific accuracy</li>
                     <li>Bright off-diagonal cells reveal common misclassifications</li>
                     <li>Toggle between raw counts and percentages to see different perspectives</li>
                 </ul>
             </div>
 
-            <div className="mt-6 bg-blue-50 p-4 rounded-lg">
-                <h3 className="text-lg font-medium mb-2 text-blue-800">Technical Implementation Details</h3>
-                <ul className="pl-5 list-disc space-y-1 text-blue-700">
+            <div className="mt-6 bg-gray-50 p-4 rounded-lg">
+                <h3 className="text-lg font-medium mb-2 text-gray-800">Technical Implementation Details</h3>
+                <ul className="pl-5 list-disc space-y-1 text-gray-700 text-sm">
                     <li>Interactive D3.js heatmap with dynamic color scaling</li>
                     <li>Custom tooltip system showing detailed cell information</li>
                     <li>Toggle between raw counts and normalized percentages</li>

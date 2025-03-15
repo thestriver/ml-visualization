@@ -311,8 +311,8 @@ export default function FeatureImportanceChart({
         <div className="feature-importance-container">
             <div className="flex flex-col space-y-4">
 
-                <div className="bg-gradient-to-r from-blue-50 to-blue-100 p-3 rounded-lg border border-blue-200">
-                    <div className="flex items-center space-x-2 text-blue-800 mb-2">
+                <div className="bg-gradient-to-r from-gray-50 to-gray-100 p-3 rounded-lg border border-gray-200">
+                    <div className="flex items-center space-x-2 text-gray-800 mb-2">
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -321,7 +321,7 @@ export default function FeatureImportanceChart({
                     </div>
                     <div className="flex flex-wrap gap-2">
                         <span className="px-2 py-1 bg-white rounded text-sm font-medium text-blue-700">D3.js</span>
-                        <span className="px-2 py-1 bg-white rounded text-sm font-medium text-blue-700">useCallback</span>
+                        <span className="px-2 py-1 bg-white rounded text-sm font-medium text-blue-700">React/Next.js</span>
                         <span className="px-2 py-1 bg-white rounded text-sm font-medium text-blue-700">d3-scale</span>
                         <span className="px-2 py-1 bg-white rounded text-sm font-medium text-blue-700">d3-axis</span>
                     </div>
@@ -398,22 +398,22 @@ export default function FeatureImportanceChart({
                 ></div>
             </div>
 
-            <div className="mt-6 bg-blue-50 p-4 rounded-lg">
-                <h3 className="text-lg font-medium mb-2 text-blue-800">Feature Importance Analysis</h3>
-                <p className="text-blue-700 mb-3">
+            <div className="mt-6 bg-gray-50 p-4 rounded-lg">
+                <h3 className="text-lg font-medium mb-2 text-gray-800">Feature Importance Analysis</h3>
+                <p className="text-gray-700 mb-3 text-sm">
                     This visualization shows which features have the most influence on the model&apos;s predictions. Higher values
                     indicate greater importance.
                 </p>
-                <ul className="list-disc pl-5 text-blue-700">
+                <ul className="list-disc pl-5 text-gray-700 text-sm">
                     <li>Toggle between bar chart and parallel coordinates for different perspectives</li>
                     <li>Features are color-coded by type: numerical, categorical, or textual</li>
                     <li>Adjust the number of top features shown to focus on the most important ones</li>
                 </ul>
             </div>
 
-            <div className="mt-6 bg-blue-50 p-4 rounded-lg">
-                <h3 className="text-lg font-medium mb-2 text-blue-800">Technical Implementation Details</h3>
-                <ul className="pl-5 list-disc space-y-1 text-blue-700">
+            <div className="mt-6 bg-gray-50 p-4 rounded-lg">
+                <h3 className="text-lg font-medium mb-2 text-gray-800">Technical Implementation Details</h3>
+                <ul className="pl-5 list-disc space-y-1 text-gray-700 text-sm">
                     <li>Dual visualization modes: Bar Chart and Parallel Coordinates</li>
                     <li>Optimized D3.js rendering with useCallback hooks</li>
                     <li>Interactive filtering system for top N features</li>

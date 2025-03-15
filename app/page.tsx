@@ -39,7 +39,7 @@ export default function Home() {
     <div className="container mx-auto px-4 py-4 max-w-7xl">
       <header className="mb-4">
         <h1 className="text-3xl font-bold text-gray-800">Machine Learning Visualization</h1>
-        <p className="text-gray-600">Created with Next.js, TypeScript, Tailwind CSS, D3.js, visx, and Three.js (WebGL)</p>
+        <p className="text-gray-600 text-sm">Created with Next.js, TypeScript, Tailwind CSS, D3.js, visx, and Three.js (WebGL)</p>
       </header>
 
       <div className="flex justify-between items-center mb-2">
@@ -48,7 +48,7 @@ export default function Home() {
         {['loss', 'confusion', 'importance', 'predictions'].includes(activeTab) && (
           <button
             onClick={generateNewData}
-            className="bg-blue-600 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white hover:bg-blue-700"
+            className="bg-gray-900 py-2 px-4 border cursor-pointer border-transparent rounded-[2px] shadow-sm text-sm font-medium text-white hover:bg-gray-800"
           >
             Generate New Data
           </button>
